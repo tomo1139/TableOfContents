@@ -3,9 +3,10 @@ package com.example.tomo.tableofcontents
 import android.databinding.DataBindingUtil
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import com.example.tomo.tableofcontents.databinding.ActivityMainBinding
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), TableOfContentsCallback {
 
     private val binding: ActivityMainBinding by lazy { DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main) }
 
@@ -13,17 +14,17 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         val contents = listOf(
-                Content.Table(listOf(
-                        TableContent("tag1", "caption1"),
-                        TableContent("tag2", "caption2"),
-                        TableContent("tag3", "caption3"),
-                        TableContent("tag4", "caption4"),
-                        TableContent("tag5", "caption5"),
-                        TableContent("tag6", "caption6"),
-                        TableContent("tag7", "caption7"),
-                        TableContent("tag8", "caption8"),
-                        TableContent("tag9", "caption9"),
-                        TableContent("tag10", "caption10")
+                Content.TableOfContents(listOf(
+                        Link("tag1", "caption1"),
+                        Link("tag2", "caption2"),
+                        Link("tag3", "caption3"),
+                        Link("tag4", "caption4"),
+                        Link("tag5", "caption5"),
+                        Link("tag6", "caption6"),
+                        Link("tag7", "caption7"),
+                        Link("tag8", "caption8"),
+                        Link("tag9", "caption9"),
+                        Link("tag10", "caption10")
                 )),
                 Content.CaptionParts("tag1", "caption1"), Content.TextParts("textParts1"),
                 Content.CaptionParts("tag2", "caption2"), Content.TextParts("textParts2"),
@@ -38,8 +39,12 @@ class MainActivity : AppCompatActivity() {
         )
         val data = Data(contents)
 
-        val controller = EpoxyController()
+        val controller = EpoxyController(this, this)
         controller.setData(data)
         binding.recyclerView.adapter = controller.adapter
+    }
+
+    override fun onClickLink(link: Link) {
+        Log.e("dbg", link.toString())
     }
 }

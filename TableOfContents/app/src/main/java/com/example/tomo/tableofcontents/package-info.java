@@ -1,4 +1,5 @@
 @EpoxyDataBindingLayouts({
+        R.layout.table_of_contents_parts,
         R.layout.text_parts,
         R.layout.caption_parts,
 })

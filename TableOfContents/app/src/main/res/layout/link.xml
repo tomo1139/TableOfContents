@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <data>
+
+        <variable name="link" type="com.example.tomo.tableofcontents.Link" />
+
+        <variable name="callback" type="com.example.tomo.tableofcontents.TableOfContentsCallback" />
+
+    </data>
+
+    <FrameLayout
+        android:onClick="@{() -> callback.onClickLink(link)}"
+        android:background="?attr/selectableItemBackground"
+        android:orientation="vertical"
+        android:padding="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:text="@{link.title}"
+            android:textColor="#000000"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </FrameLayout>
+
+</layout>
