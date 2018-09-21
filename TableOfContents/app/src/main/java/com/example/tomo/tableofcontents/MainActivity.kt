@@ -47,12 +47,10 @@ class MainActivity : AppCompatActivity(), TableOfContentsCallback {
     override fun onClickLink(link: Link) {
         for (itemIdx in 0 until controller.adapter.itemCount) {
             val model = controller.adapter.getModelAtPosition(itemIdx)
-            if (model is CaptionPartsBindingModel_) {
-                if (link.tag == model.caption().tag) {
-                    val layoutManager = binding.recyclerView.layoutManager as LinearLayoutManager
-                    layoutManager.scrollToPositionWithOffset(itemIdx, 0)
-                    break
-                }
+            if (model is CaptionPartsBindingModel_ && link.tag == model.caption().tag) {
+                val layoutManager = binding.recyclerView.layoutManager as LinearLayoutManager
+                layoutManager.scrollToPositionWithOffset(itemIdx, 0)
+                break
             }
         }
     }
