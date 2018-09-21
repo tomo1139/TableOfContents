@@ -3,12 +3,13 @@ package com.example.tomo.tableofcontents
 import android.databinding.DataBindingUtil
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
+import android.support.v7.widget.LinearLayoutManager
 import com.example.tomo.tableofcontents.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity(), TableOfContentsCallback {
 
     private val binding: ActivityMainBinding by lazy { DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main) }
+    private val controller: EpoxyController by lazy { EpoxyController(this, this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,12 +40,20 @@ class MainActivity : AppCompatActivity(), TableOfContentsCallback {
         )
         val data = Data(contents)
 
-        val controller = EpoxyController(this, this)
         controller.setData(data)
         binding.recyclerView.adapter = controller.adapter
     }
 
     override fun onClickLink(link: Link) {
-        Log.e("dbg", link.toString())
+        for (itemIdx in 0 until controller.adapter.itemCount) {
+            val model = controller.adapter.getModelAtPosition(itemIdx)
+            if (model is CaptionPartsBindingModel_) {
+                if (link.tag == model.caption().tag) {
+                    val layoutManager = binding.recyclerView.layoutManager as LinearLayoutManager
+                    layoutManager.scrollToPositionWithOffset(itemIdx, 0)
+                    break
+                }
+            }
+        }
     }
 }
