@@ -4,7 +4,11 @@ import android.databinding.DataBindingUtil
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import com.example.tomo.tableofcontents.databinding.ActivityMainBinding
+import android.support.v7.widget.LinearSmoothScroller
+
+
 
 class MainActivity : AppCompatActivity(), TableOfContentsCallback {
 
@@ -45,11 +49,19 @@ class MainActivity : AppCompatActivity(), TableOfContentsCallback {
     }
 
     override fun onClickLink(link: Link) {
+        val smoothScroller = object : LinearSmoothScroller(this) {
+            override fun getVerticalSnapPreference(): Int {
+                return LinearSmoothScroller.SNAP_TO_START
+            }
+        }
         for (itemIdx in 0 until controller.adapter.itemCount) {
             val model = controller.adapter.getModelAtPosition(itemIdx)
             if (model is CaptionPartsBindingModel_ && link.tag == model.caption().tag) {
                 val layoutManager = binding.recyclerView.layoutManager as LinearLayoutManager
-                layoutManager.scrollToPositionWithOffset(itemIdx, 0)
+                smoothScroller.targetPosition = itemIdx
+                layoutManager.startSmoothScroll(smoothScroller)
+                //layoutManager.smoothScrollToPosition(binding.recyclerView, RecyclerView.State(), itemIdx)
+                //layoutManager.scrollToPositionWithOffset(itemIdx, 0)
                 break
             }
         }
