@@ -2,6 +2,7 @@ package com.example.tomo.tableofcontents
 
 import android.content.Context
 import android.databinding.DataBindingUtil
+import android.graphics.Paint
 import android.view.LayoutInflater
 import com.airbnb.epoxy.TypedEpoxyController
 import com.example.tomo.tableofcontents.databinding.LinkBinding
@@ -23,6 +24,7 @@ class EpoxyController(private val context: Context, private val callback: TableO
                                         val binding = DataBindingUtil.inflate<LinkBinding>(inflater, R.layout.link, null, false)
                                         binding.link = it
                                         binding.callback = callback
+                                        binding.title.paintFlags = binding.title.paintFlags or Paint.UNDERLINE_TEXT_FLAG
                                         container.addView(binding.root)
                                     }
                                 }
