@@ -4,7 +4,7 @@
 
     <data>
 
-        <variable name="title" type="String" />
+        <variable name="caption" type="com.example.tomo.tableofcontents.Content.CaptionParts" />
 
     </data>
 
@@ -15,7 +15,7 @@
         android:layout_height="wrap_content">
 
         <TextView
-            android:text="@{title}"
+            android:text="@{caption.title}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             tools:text="text"

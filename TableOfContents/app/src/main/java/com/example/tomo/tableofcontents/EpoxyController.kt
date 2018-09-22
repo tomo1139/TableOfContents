@@ -40,7 +40,7 @@ class EpoxyController(private val context: Context, private val callback: TableO
                 is Content.CaptionParts -> {
                     CaptionPartsBindingModel_()
                             .id(modelCountBuiltSoFar)
-                            .title(it.title)
+                            .caption(it)
                             .addTo(this)
                 }
 
