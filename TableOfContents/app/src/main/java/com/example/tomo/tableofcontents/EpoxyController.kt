@@ -14,7 +14,7 @@ class EpoxyController(private val context: Context, private val callback: TableO
 
         data.contents.forEach {
             when (it) {
-                is Content.TableOfContents -> {
+                is Content.TableOfContentsParts -> {
                     val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
                     TableOfContentsPartsBindingModel_()
                             .onBind { model, view, position ->

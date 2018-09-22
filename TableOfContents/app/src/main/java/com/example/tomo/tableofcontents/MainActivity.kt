@@ -4,7 +4,6 @@ import android.databinding.DataBindingUtil
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import com.example.tomo.tableofcontents.databinding.ActivityMainBinding
 import android.support.v7.widget.LinearSmoothScroller
 
@@ -19,7 +18,7 @@ class MainActivity : AppCompatActivity(), TableOfContentsCallback {
         super.onCreate(savedInstanceState)
 
         val contents = listOf(
-                Content.TableOfContents(listOf(
+                Content.TableOfContentsParts(listOf(
                         Link("tag1", "caption1"),
                         Link("tag2", "caption2"),
                         Link("tag3", "caption3"),
@@ -60,8 +59,6 @@ class MainActivity : AppCompatActivity(), TableOfContentsCallback {
                 val layoutManager = binding.recyclerView.layoutManager as LinearLayoutManager
                 smoothScroller.targetPosition = itemIdx
                 layoutManager.startSmoothScroll(smoothScroller)
-                //layoutManager.smoothScrollToPosition(binding.recyclerView, RecyclerView.State(), itemIdx)
-                //layoutManager.scrollToPositionWithOffset(itemIdx, 0)
                 break
             }
         }
