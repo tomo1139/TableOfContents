@@ -29,10 +29,6 @@ class EpoxyController(private val context: Context, private val callback: TableO
                                     }
                                 }
                             }
-                            .onUnbind { model, view ->
-                                val container = (view.dataBinding as TableOfContentsPartsBinding).container
-                                container.removeAllViews()
-                            }
                             .id(modelCountBuiltSoFar)
                             .addTo(this)
                 }
